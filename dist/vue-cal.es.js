@@ -30,48 +30,48 @@ class P {
   }
 }
 const W = 1440;
-let c, v, V;
+let h, v, V;
 class z {
   constructor(t, i) {
     f(this, "_vuecal", null);
     f(this, "eventDefaults", { _eid: null, start: "", startTimeMinutes: 0, end: "", endTimeMinutes: 0, title: "", content: "", background: !1, allDay: !1, segments: null, repeat: null, daysCount: 1, deletable: !0, deleting: !1, titleEditable: !0, resizable: !0, resizing: !1, draggable: !0, dragging: !1, draggingStatic: !1, focused: !1, class: "" });
-    this._vuecal = t, c = i;
+    this._vuecal = t, h = i;
   }
   createAnEvent(t, i, n) {
-    if (typeof t == "string" && (t = c.stringToDate(t)), !(t instanceof Date))
+    if (typeof t == "string" && (t = h.stringToDate(t)), !(t instanceof Date))
       return !1;
-    const s = c.dateToMinutes(t), a = s + (i = 1 * i || 120), r = c.addMinutes(new Date(t), i);
-    n.end && (typeof n.end == "string" && (n.end = c.stringToDate(n.end)), n.endTimeMinutes = c.dateToMinutes(n.end));
+    const s = h.dateToMinutes(t), a = s + (i = 1 * i || 120), r = h.addMinutes(new Date(t), i);
+    n.end && (typeof n.end == "string" && (n.end = h.stringToDate(n.end)), n.endTimeMinutes = h.dateToMinutes(n.end));
     const l = { ...this.eventDefaults, _eid: `${this._vuecal._uid}_${this._vuecal.eventIdIncrement++}`, start: t, startTimeMinutes: s, end: r, endTimeMinutes: a, segments: null, ...n };
-    return typeof this._vuecal.onEventCreate != "function" || this._vuecal.onEventCreate(l, () => this.deleteAnEvent(l)) ? (l.startDateF !== l.endDateF && (l.daysCount = c.countDays(l.start, l.end)), this._vuecal.mutableEvents.push(l), this._vuecal.addEventsToView([l]), this._vuecal.emitWithEvent("event-create", l), this._vuecal.$emit("event-change", { event: this._vuecal.cleanupEvent(l), originalEvent: null }), l) : void 0;
+    return typeof this._vuecal.onEventCreate != "function" || this._vuecal.onEventCreate(l, () => this.deleteAnEvent(l)) ? (l.startDateF !== l.endDateF && (l.daysCount = h.countDays(l.start, l.end)), this._vuecal.mutableEvents.push(l), this._vuecal.addEventsToView([l]), this._vuecal.emitWithEvent("event-create", l), this._vuecal.$emit("event-change", { event: this._vuecal.cleanupEvent(l), originalEvent: null }), l) : void 0;
   }
   addEventSegment(t) {
-    t.segments || (b.set(t, "segments", {}), b.set(t.segments, c.formatDateLite(t.start), { start: t.start, startTimeMinutes: t.startTimeMinutes, endTimeMinutes: W, isFirstDay: !0, isLastDay: !1 }));
-    const i = t.segments[c.formatDateLite(t.end)];
+    t.segments || (b.set(t, "segments", {}), b.set(t.segments, h.formatDateLite(t.start), { start: t.start, startTimeMinutes: t.startTimeMinutes, endTimeMinutes: W, isFirstDay: !0, isLastDay: !1 }));
+    const i = t.segments[h.formatDateLite(t.end)];
     i && (i.isLastDay = !1, i.endTimeMinutes = W);
-    const n = c.addDays(t.end, 1), s = c.formatDateLite(n);
-    return n.setHours(0, 0, 0, 0), b.set(t.segments, s, { start: n, startTimeMinutes: 0, endTimeMinutes: t.endTimeMinutes, isFirstDay: !1, isLastDay: !0 }), t.end = c.addMinutes(n, t.endTimeMinutes), t.daysCount = Object.keys(t.segments).length, s;
+    const n = h.addDays(t.end, 1), s = h.formatDateLite(n);
+    return n.setHours(0, 0, 0, 0), b.set(t.segments, s, { start: n, startTimeMinutes: 0, endTimeMinutes: t.endTimeMinutes, isFirstDay: !1, isLastDay: !0 }), t.end = h.addMinutes(n, t.endTimeMinutes), t.daysCount = Object.keys(t.segments).length, s;
   }
   removeEventSegment(t) {
     let i = Object.keys(t.segments).length;
     if (i <= 1)
-      return c.formatDateLite(t.end);
-    b.delete(t.segments, c.formatDateLite(t.end)), i--;
-    const n = c.subtractDays(t.end, 1), s = c.formatDateLite(n), a = t.segments[s];
+      return h.formatDateLite(t.end);
+    b.delete(t.segments, h.formatDateLite(t.end)), i--;
+    const n = h.subtractDays(t.end, 1), s = h.formatDateLite(n), a = t.segments[s];
     return i ? a && (a.isLastDay = !0, a.endTimeMinutes = t.endTimeMinutes) : t.segments = null, t.daysCount = i || 1, t.end = n, s;
   }
   createEventSegments(t, i, n) {
     const s = i.getTime(), a = n.getTime();
-    let r, l, o, d = t.start.getTime(), u = t.end.getTime(), h = !1;
-    for (t.end.getHours() || t.end.getMinutes() || (u -= 1e3), b.set(t, "segments", {}), t.repeat ? (r = s, l = Math.min(a, t.repeat.until ? c.stringToDate(t.repeat.until).getTime() : a)) : (r = Math.max(s, d), l = Math.min(a, u)); r <= l; ) {
+    let r, l, o, d = t.start.getTime(), u = t.end.getTime(), c = !1;
+    for (t.end.getHours() || t.end.getMinutes() || (u -= 1e3), b.set(t, "segments", {}), t.repeat ? (r = s, l = Math.min(a, t.repeat.until ? h.stringToDate(t.repeat.until).getTime() : a)) : (r = Math.max(s, d), l = Math.min(a, u)); r <= l; ) {
       let m = !1;
-      const D = c.addDays(new Date(r), 1).setHours(0, 0, 0, 0);
+      const D = h.addDays(new Date(r), 1).setHours(0, 0, 0, 0);
       let p, g, _, w;
       if (t.repeat) {
-        const k = new Date(r), C = c.formatDateLite(k);
-        (h || t.occurrences && t.occurrences[C]) && (h || (d = t.occurrences[C].start, o = new Date(d).setHours(0, 0, 0, 0), u = t.occurrences[C].end), h = !0, m = !0), p = r === o, g = C === c.formatDateLite(new Date(u)), _ = new Date(p ? d : r), w = c.formatDateLite(_), g && (h = !1);
+        const k = new Date(r), C = h.formatDateLite(k);
+        (c || t.occurrences && t.occurrences[C]) && (c || (d = t.occurrences[C].start, o = new Date(d).setHours(0, 0, 0, 0), u = t.occurrences[C].end), c = !0, m = !0), p = r === o, g = C === h.formatDateLite(new Date(u)), _ = new Date(p ? d : r), w = h.formatDateLite(_), g && (c = !1);
       } else
-        m = !0, p = r === d, g = l === u && D > l, _ = p ? t.start : new Date(r), w = c.formatDateLite(p ? t.start : _);
+        m = !0, p = r === d, g = l === u && D > l, _ = p ? t.start : new Date(r), w = h.formatDateLite(p ? t.start : _);
       m && b.set(t.segments, w, { start: _, startTimeMinutes: p ? t.startTimeMinutes : 0, endTimeMinutes: g ? t.endTimeMinutes : W, isFirstDay: p, isLastDay: g }), r = D;
     }
     return t;
@@ -83,7 +83,7 @@ class z {
     V = t.slice(0), v = {}, t.forEach((s) => {
       V.shift(), v[s._eid] || b.set(v, s._eid, { overlaps: [], start: s.start, position: 0 }), v[s._eid].position = 0, V.forEach((a) => {
         v[a._eid] || b.set(v, a._eid, { overlaps: [], start: a.start, position: 0 });
-        const r = this.eventInRange(a, s.start, s.end), l = i.overlapsPerTimeStep ? c.datesInSameTimeStep(s.start, a.start, i.timeStep) : 1;
+        const r = this.eventInRange(a, s.start, s.end), l = i.overlapsPerTimeStep ? h.datesInSameTimeStep(s.start, a.start, i.timeStep) : 1;
         if (s.background || s.allDay || a.background || a.allDay || !r || !l) {
           let o, d;
           (o = (v[s._eid] || { overlaps: [] }).overlaps.indexOf(a._eid)) > -1 && v[s._eid].overlaps.splice(o, 1), (d = (v[a._eid] || { overlaps: [] }).overlaps.indexOf(s._eid)) > -1 && v[a._eid].overlaps.splice(d, 1), v[a._eid].position--;
@@ -129,8 +129,8 @@ function E(e, t, i, n, s, a, r, l) {
         return o.call(D), u(m, D);
       };
     } else {
-      var h = d.beforeCreate;
-      d.beforeCreate = h ? [].concat(h, o) : [o];
+      var c = d.beforeCreate;
+      d.beforeCreate = c ? [].concat(c, o) : [o];
     }
   return { exports: e, options: d };
 }
@@ -142,7 +142,7 @@ const L = E({ inject: ["vuecal", "utils", "view"], props: { transitionDirection:
     return [];
   let e = !1;
   return this.weekDays.map((t, i) => {
-    const n = this.utils.date.addDays(this.view.startDate, this.vuecal.startWeekOnSunday && this.vuecal.hideWeekends ? i - 1 : i);
+    const n = this.utils.date.addDays(this.view.startDate, i);
     return { hide: t.hide, full: t.label, small: t.short || t.label.substr(0, 3), xsmall: t.short || t.label.substr(0, 1), ...this.view.id === "week" ? { dayOfMonth: n.getDate(), date: n, today: !e && this.utils.date.isToday(n) && !e++ } : {} };
   });
 }, cellWidth() {
@@ -826,7 +826,7 @@ A valid view must be one of: ${j.join(", ")}.`), e = "week"), this.enabledViews.
       n = t[e ? "addDays" : "subtractDays"](s, 1);
       const r = n.getDay(), l = this.startWeekOnSunday ? r : (r || 7) - 1;
       if (this.weekDays[l].hide) {
-        const o = this.weekDays.map((u, h) => ({ ...u, i: h }));
+        const o = this.weekDays.map((u, c) => ({ ...u, i: c }));
         let d = 0;
         e ? ([...o.slice(l), ...o].find((u) => (d++, !u.hide)).i, d--) : [...o, ...o.slice(0, l)].reverse().find((u) => (d++, !u.hide)).i, n = t[e ? "addDays" : "subtractDays"](n, d);
       }
@@ -852,8 +852,8 @@ A valid view must be one of: ${j.join(", ")}.`), e = "week"), this.enabledViews.
 }, onMouseUp(e) {
   const { focusAnEvent: t, resizeAnEvent: i, clickHoldAnEvent: n, clickHoldACell: s, dragCreateAnEvent: a } = this.domEvents, { _eid: r } = n, { _eid: l } = i;
   let o = !1;
-  const { event: d, start: u } = a, h = this.isDOMElementAnEvent(e.target), m = t.mousedUp;
-  if (t.mousedUp = !1, h && (this.domEvents.cancelClickEventCreation = !0), s.eventCreated)
+  const { event: d, start: u } = a, c = this.isDOMElementAnEvent(e.target), m = t.mousedUp;
+  if (t.mousedUp = !1, c && (this.domEvents.cancelClickEventCreation = !0), s.eventCreated)
     return;
   if (l) {
     const { originalEnd: p, originalEndTimeMinutes: g, endTimeMinutes: _ } = i, w = this.view.events.find((k) => k._eid === i._eid);
@@ -866,7 +866,7 @@ A valid view must be one of: ${j.join(", ")}.`), e = "week"), this.enabledViews.
     w && (w.resizing = !1), i._eid = null, i.start = null, i.split = null, i.segment = null, i.originalEndTimeMinutes = null, i.originalEnd = null, i.endTimeMinutes = null, i.startCell = null, i.endCell = null;
   } else
     u && (d && (this.emitWithEvent("event-drag-create", d), a.event.resizing = !1), a.start = null, a.split = null, a.event = null);
-  h || l || this.unfocusEvent(), n.timeoutId && !r && (clearTimeout(n.timeoutId), n.timeoutId = null), s.timeoutId && (clearTimeout(s.timeoutId), s.timeoutId = null);
+  c || l || this.unfocusEvent(), n.timeoutId && !r && (clearTimeout(n.timeoutId), n.timeoutId = null), s.timeoutId && (clearTimeout(s.timeoutId), s.timeoutId = null);
   const D = typeof this.onEventClick == "function";
   if (m && !o && !r && !d && D) {
     let p = this.view.events.find((g) => g._eid === t._eid);
@@ -882,10 +882,10 @@ A valid view must be one of: ${j.join(", ")}.`), e = "week"), this.enabledViews.
   }
   if (a && (a.endTimeMinutes = i.endTimeMinutes), i.end.setHours(0, i.endTimeMinutes, i.endTimeMinutes === O ? -1 : 0, 0), this.resizeX && this.isWeekView) {
     i.daysCount = r.countDays(i.start, i.end);
-    const d = this.$refs.cells, u = d.offsetWidth / d.childElementCount, h = Math.floor(s.x / u);
-    if (t.startCell === null && (t.startCell = h - (i.daysCount - 1)), t.endCell !== h) {
-      t.endCell = h;
-      const m = r.addDays(i.start, h - t.startCell), D = Math.max(r.countDays(i.start, m), 1);
+    const d = this.$refs.cells, u = d.offsetWidth / d.childElementCount, c = Math.floor(s.x / u);
+    if (t.startCell === null && (t.startCell = c - (i.daysCount - 1)), t.endCell !== c) {
+      t.endCell = c;
+      const m = r.addDays(i.start, c - t.startCell), D = Math.max(r.countDays(i.start, m), 1);
       if (D !== i.daysCount) {
         let p = null;
         p = D > i.daysCount ? l.addEventSegment(i) : l.removeEventSegment(i), t.segment = p, i.endTimeMinutes += 1e-3;
@@ -899,8 +899,8 @@ A valid view must be one of: ${j.join(", ")}.`), e = "week"), this.enabledViews.
     if (t.event) {
       if (a.setHours(0, r, r === O ? -1 : 0, 0), this.snapToTime) {
         let u = 60 * a.getHours() + a.getMinutes();
-        const h = u + this.snapToTime / 2;
-        u = h - h % this.snapToTime, a.setHours(0, u, 0, 0);
+        const c = u + this.snapToTime / 2;
+        u = c - c % this.snapToTime, a.setHours(0, u, 0, 0);
       }
       const o = i < a, { event: d } = t;
       d.start = o ? i : a, d.end = o ? a : i, d.startTimeMinutes = 60 * d.start.getHours() + d.start.getMinutes(), d.endTimeMinutes = 60 * d.end.getHours() + d.end.getMinutes();
@@ -1087,8 +1087,8 @@ A valid view must be one of: ${j.join(", ")}.`), e = "week"), this.enabledViews.
       n = !1, t = Array.apply(null, Array(42)).map((l, o) => {
         const d = e.addDays(r, o), u = new Date(d);
         u.setHours(23, 59, 59, 0);
-        const h = !n && e.isToday(d) && !n++;
-        return { startDate: d, formattedDate: e.formatDateLite(d), endDate: u, content: d.getDate(), today: h, outOfScope: d.getMonth() !== a, class: `vuecal__cell--day${d.getDay() || 7}` };
+        const c = !n && e.isToday(d) && !n++;
+        return { startDate: d, formattedDate: e.formatDateLite(d), endDate: u, content: d.getDate(), today: c, outOfScope: d.getMonth() !== a, class: `vuecal__cell--day${d.getDay() || 7}` };
       }), (this.hideWeekends || this.hideWeekdays.length) && (t = t.filter((l) => {
         const o = l.startDate.getDay() || 7;
         return !(this.hideWeekends && o >= 6 || this.hideWeekdays.length && this.hideWeekdays.includes(o));
@@ -1099,10 +1099,10 @@ A valid view must be one of: ${j.join(", ")}.`), e = "week"), this.enabledViews.
       n = !1;
       const a = this.view.startDate, r = this.weekDays;
       t = r.map((l, o) => {
-        const d = e.addDays(a, this.startWeekOnSunday && this.hideWeekends ? o - 1 : o), u = new Date(d);
+        const d = e.addDays(a, o), u = new Date(d);
         u.setHours(23, 59, 59, 0);
-        const h = (d.getDay() || 7) - 1;
-        return { startDate: d, formattedDate: e.formatDateLite(d), endDate: u, today: !n && e.isToday(d) && !n++, specialHours: this.specialDayHours[h] || [] };
+        const c = (d.getDay() || 7) - 1;
+        return { startDate: d, formattedDate: e.formatDateLite(d), endDate: u, today: !n && e.isToday(d) && !n++, specialHours: this.specialDayHours[c] || [] };
       }).filter((l, o) => !r[o].hide);
       break;
     }
